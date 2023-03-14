@@ -1,0 +1,66 @@
+package core
+
+import (
+	"reflect"
+	"testing"
+)
+
+func TestOptionsImpl_Get(t *testing.T) {
+	type args struct {
+		ID    string
+		tasks map[string]Task
+	}
+	id := "1"
+	tasks := make(map[string]Task)
+	tasks["1"] = Task{
+		ID:          "1",
+		Nombre:      "Prueba",
+		Descripcion: "Prueba",
+		Estado:      1,
+		FechaIni:    "01/03/2023",
+		FechaFin:    "02/02/2023",
+		Prioridad:   3,
+	}
+
+	tasks["2"] = Task{
+		ID:          "2",
+		Nombre:      "Prueba2",
+		Descripcion: "Prueba2",
+		Estado:      2,
+		FechaIni:    "02/02/2023",
+		FechaFin:    "02/05/2023",
+		Prioridad:   3,
+	}
+	want := Task{
+		ID:          "1",
+		Nombre:      "Prueba",
+		Descripcion: "Prueba",
+		Estado:      1,
+		FechaIni:    "01/03/2023",
+		FechaFin:    "02/02/2023",
+		Prioridad:   3,
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want Task
+	}{
+		{
+			name: "Test Get",
+			args: args{
+				ID:    id,
+				tasks: tasks,
+			},
+			want: want,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			o := OptionsImpl{}
+			if got := o.Get(tt.args.ID, tt.args.tasks); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Get() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

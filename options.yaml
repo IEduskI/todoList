@@ -1,0 +1,9 @@
+status:
+  1: Pendiente
+  2: En progreso
+  3: Completado
+
+priority:
+  1: Bajo
+  2: Medio
+  3: Alto
